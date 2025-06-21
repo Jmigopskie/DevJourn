@@ -101,8 +101,6 @@ class Player(QMainWindow):
 
         if selected_items:
             selected_song = selected_items[0].text()
-            self.extractor = self.linkInput.text().split("=")
-            self.song = self.extractor[1]
 
             self.play.setText("Play")
             await MusicProcessor.play(os.path.join(os.path.expanduser("~/MusicPlayer/songs"), selected_song))
