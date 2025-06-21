@@ -1,8 +1,6 @@
 import subprocess
 import os
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QApplication, QHBoxLayout, QPushButton, QWidget, QLabel, QLineEdit, QFrame, QListWidget
-from PyQt6.QtCore import QRect
-import sys
 from qasync import asyncSlot, QEventLoop
 import asyncio
 
@@ -14,7 +12,8 @@ class MusicProcessor():
             "-x",
             "--audio-format", "mp3",
             input,
-            '-o', '%(id)s.%(ext)s'
+            '-o', 'C:/Users/jmj11/Downloads/journal/MusicPlayer/songs/%(title)s.%(ext)s',
+ 
         ]
 
         try:
@@ -93,7 +92,7 @@ class Player(QMainWindow):
         await asyncio.sleep(10)
         self.download.setText("DL")
         self.songlists.clear()
-        self.load_songs(os.path.expanduser("~/MusicPlayer/songs"))
+        self.load_songs(os.path.expanduser("C:/Users/jmj11/Downloads/journal/MusicPlayer/songs"))
 
     @asyncSlot()
     async def playsong(self):
@@ -103,7 +102,7 @@ class Player(QMainWindow):
             selected_song = selected_items[0].text()
 
             self.play.setText("Play")
-            await MusicProcessor.play(os.path.join(os.path.expanduser("~/MusicPlayer/songs"), selected_song))
+            await MusicProcessor.play(os.path.join(os.path.expanduser("C:/Users/jmj11/Downloads/journal/MusicPlayer/songs"), selected_song))
             self.play.setText("Pause")
 
         else:
@@ -121,7 +120,7 @@ if __name__ == "__main__":
 
     loop = QEventLoop(app)
     asyncio.set_event_loop(loop)
-    song_paths = os.path.expanduser("~/MusicPlayer/songs")
+    song_paths = os.path.expanduser("C:/Users/jmj11/Downloads/journal/MusicPlayer/songs")
     MusicPlayer = Player(song_paths)
     MusicPlayer.show()
 
